@@ -10,6 +10,7 @@ This project was built on an HP laptop and is hosted on Github.
 
 #Data Design
 The data needed to ensure the program's functionality is obtained through an API key from the Superhero API. At the beginning of the program, two libraries are imported to help with the processing and usage of the data obtained from the API database. The requests library permits interaction with the API key, while the JSON library converts the received data in a JSON format. Also at the beginning of the program is the API key and url used to obtain the necessary data for team members. When the program obtains the name, full name, and power statistics of an inputted character, it first uses the url (written as base_url = f'https://superheroapi.com/api/{api_key}') from the API and enters the information it wants into a new url variable (for example, the url used to search for a character's name is url = f'{base_url}/search/{name}'). Then, it uses the response.get command on the url to get a response from the API database. Once a response is received, the data is then converted to a JSON format using the .json() command. The code below provides an example of this process when the program searches for a character's name:
+
 import requests #library needed to interact with the API
 import json #library needed to convert the data into a JSON format
 api_key = 'c4d69dd993618ac74a49f967895e4a00'
@@ -18,6 +19,7 @@ name = input("\nEnter the name of the character you want to add to Team A: ")
     url = f'{base_url}/search/{name}' #API URL to search for the inputted character
     response = requests.get(url) #get a response from the API
     data = response.json() #converting the response to JSON format
+    
 There is also a series of checks performed to ensure the validity of an inputted character's data. For example, an if-else statment is used to find any characters in the API database that match the name inputted by a user. If any matching characters are found, the program will output a list of the the names and full names of each character that match the inputted name. If no matching characters are found, the program will output "No matching characters found. Please try again” and ask the user to input another name. When each matching character is listed, a number is written right next to them. After the list is outputted, the user is then asked to enter the number of the character they would like to add to the team. If the user's input is not an integer, the program will output "Invalid input. Please enter a number” and ask the user to enter another number. If the user's input is not a number listed in the list, the program will output "Invalid choice. Please try again", and also ask the user to enter another number. An if-else statement is also used to ensure the inputted character is not missing any power statistics. This statement is written as the following (for Team A):
 if stats_data.get('response') == 'success' and all(
                         stats_data.get(stat, 'null') != 'null' for stat in ['intelligence', 
